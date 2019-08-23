@@ -1,4 +1,4 @@
-from flask import Flask, request, Markup
+from flask import Flask, request, render_template, make_response
 from flask_restful import Api, Resource, reqparse
 import requests
 from flask import send_file
@@ -9,7 +9,7 @@ from bokeh.palettes import Spectral, viridis, magma, plasma
 from bokeh.plotting import figure, show, output_notebook, ColumnDataSource
 from bokeh.io import export_png
 from bokeh.resources import CDN
-from bokeh.embed import file_html
+from bokeh.embed import file_html, components
 import math
 
 app = Flask(__name__)
@@ -17,6 +17,7 @@ api = Api(app)
 
 class getChart(Resource):
     def get(self, locations):
+        headers = {'Content-Type': 'text/html'}
         key = 'derp'
         if request.args:
             key = request.args.get('key', 0)
@@ -85,8 +86,8 @@ class getChart(Resource):
         p.toolbar_location = None
         # output_notebook(hide_banner=True)
         # show(p)
-        
-        return Markup(file_html(p, CDN, "Temperatures F"))
+        script, div = components(p)
+        return make_response(render_template('index.html', script=script, div=div))
 
 api.add_resource(getChart,"/getChart/<string:locations>")
 
