@@ -22,7 +22,7 @@ class getChart(Resource):
         if request.args:
             key = request.args.get('key', 0)
 
-        locations = locations.split(',')
+        locations = locations.split(';')
 
         owm = OWM(key)
         def getForecastfromDict(loc):
