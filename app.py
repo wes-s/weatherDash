@@ -75,7 +75,7 @@ class getChart(Resource):
         p = figure(width=1000, height=600, x_axis_type="datetime")
 
         for num, location in enumerate(locations, start=0):
-            p.line(temp_c.index.values, temp_c[0:][location], legend=location, color=colors[num*2+1], line_width=2)
+            p.line(temp_c.index.values, temp_c[0:][location], legend=location, color=colors[num*2+1], line_width=4)
             p.circle(temp_c.index.values, temp_c[0:][location],  color=colors[num*2],size=8)
 
         p.xaxis[0].ticker.desired_num_ticks = len(temp_c)*2
