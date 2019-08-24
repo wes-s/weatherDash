@@ -84,6 +84,7 @@ class getChart(Resource):
 
         p.toolbar.logo = None
         p.toolbar_location = None
+        p.background_fill_color = "#949494"
         # output_notebook(hide_banner=True)
         # show(p)
         script, div = components(p)
