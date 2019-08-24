@@ -6,10 +6,11 @@ from pyowm import OWM
 from datetime import datetime, timedelta
 import pandas as pd
 from bokeh.palettes import Spectral, viridis, magma, plasma
-from bokeh.plotting import figure, show, output_notebook, ColumnDataSource
+from bokeh.plotting import figure, show, output_notebook
 from bokeh.io import export_png
 from bokeh.resources import CDN
-from bokeh.embed import file_html, components
+from bokeh.embed import components
+from bokeh.models import DatetimeTickFormatter
 import math
 
 app = Flask(__name__)
@@ -77,10 +78,17 @@ class getChart(Resource):
         for num, location in enumerate(locations, start=0):
             p.line(temp_c.index.values, temp_c[0:][location], legend=location, color=colors[num*2+1], line_width=4)
             p.circle(temp_c.index.values, temp_c[0:][location],  color=colors[num*2],size=8)
-
+        
+        p.xaxis.formatter=DatetimeTickFormatter(
+               hours=["%H:00"],
+               days=["%m-%d %H:00"],
+               months=["%m-%d %H:00"],
+               years=["%m-%d %H:00"]
+           )
+        
         p.xaxis[0].ticker.desired_num_ticks = len(temp_c)*2
 
-        p.xaxis.major_label_orientation = math.pi/2
+        p.xaxis.major_label_orientation = math.pi/4
 
         p.toolbar.logo = None
         p.toolbar_location = None
