@@ -78,7 +78,7 @@ class getChart(Resource):
             p.line(temp_c.index.values, temp_c[0:][location], legend=location, color=colors[num*2+1], line_width=2)
             p.circle(temp_c.index.values, temp_c[0:][location],  color=colors[num*2],size=8)
 
-        p.xaxis[0].ticker.desired_num_ticks = 96
+        p.xaxis[0].ticker.desired_num_ticks = len(temp_c)*2
 
         p.xaxis.major_label_orientation = math.pi/2
 
