@@ -71,7 +71,7 @@ class getChart(Resource):
 
         temp_c = pd.concat(temps,axis=1)
         temp_c.columns = locations
-        colors = viridis(len(locations*2))
+        colors = plasma(len(locations*2))
 
         p = figure(width=800, height=500, x_axis_type="datetime")
 
