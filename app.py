@@ -73,7 +73,7 @@ class getChart(Resource):
         temp_c.columns = locations
         colors = plasma(len(locations*2))
 
-        p = figure(width=1000, height=500, x_axis_type="datetime")
+        p = figure(width=1000, height=550, x_axis_type="datetime")
 
         for num, location in enumerate(locations, start=0):
             p.line(temp_c.index.values, temp_c[0:][location], legend=location, color=colors[num*2+1], line_width=4)
