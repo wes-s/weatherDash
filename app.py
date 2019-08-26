@@ -75,7 +75,7 @@ class getChart(Resource):
             f = forecast.get_series(['temp'])
             dict = {}
             for temp in f:
-                dict.update({pytz.utc.localize(temp['datetime']):
+                dict.update({datetime.fromtimestamp(datetime.timestamp(pytz.utc.localize(temp['datetime']))):
                  {
                      'temp': temp['temp']
                  }
