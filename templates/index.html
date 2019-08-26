@@ -13,6 +13,8 @@
     {{script|safe}}
     {{div|safe}}
     <script>
+         if ('scrollRestoration' in window.history) {window.history.scrollRestoration = 'manual'}
+        // window.scrollTo(0,document.body.scrollHeight);
         setTimeout(function(){
         window.location.reload(1);
         }, 300000);
