@@ -4,7 +4,8 @@ import requests
 from flask import send_file
 # from pyowm import OWM
 from weatherbit.api import Api as wApi
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+import pytz
 import pandas as pd
 from bokeh.palettes import Spectral, viridis, magma, plasma
 from bokeh.plotting import figure, show, output_notebook
@@ -74,7 +75,7 @@ class getChart(Resource):
             f = forecast.get_series(['temp'])
             dict = {}
             for temp in f:
-                dict.update({temp['datetime']:
+                dict.update({pytz.utc.localize(temp['datetime']):
                  {
                      'temp': temp['temp']
                  }
