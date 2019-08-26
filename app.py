@@ -2,7 +2,8 @@ from flask import Flask, request, render_template, make_response
 from flask_restful import Api, Resource, reqparse
 import requests
 from flask import send_file
-from pyowm import OWM
+# from pyowm import OWM
+from weatherbit.api import Api as wApi
 from datetime import datetime, timedelta
 import pandas as pd
 from bokeh.palettes import Spectral, viridis, magma, plasma
@@ -22,52 +23,65 @@ class getChart(Resource):
         key = 'derp'
         if request.args:
             key = request.args.get('key', 0)
+        
+        wapi = wApi(key)
+        wapi.set_granularity('hourly')
 
         locations = locations.split(';')
-
-        owm = OWM(key)
-        def getForecastfromDict(loc):
-            obs = owm.weather_at_place(loc)                    # Toponym
-            w = obs.get_weather()
-            curr_hour = datetime.fromtimestamp(w.get_reference_time())
-            dict = {}
-            dict.update({curr_hour.replace(second=0, microsecond=0, minute=0, hour=curr_hour.hour)+timedelta(hours=curr_hour.minute//30):
-                         {
-                             'location': loc
-                             ,'timestring':datetime.fromtimestamp(w.get_reference_time()).strftime('%Y-%m-%d %X')
-                             ,'status':w.get_status()
-                             ,'detstat':w.get_detailed_status()
-                             ,'windspeed':w.get_wind()['speed']
-        #                      ,'winddirection':w.get_wind()['deg']
-                             ,'temp':w.get_temperature('fahrenheit')['temp']
-                             ,'temp_max':w.get_temperature('fahrenheit')['temp_max']
-                             ,'temp_min':w.get_temperature('fahrenheit')['temp_min']
-                             }
-                            })
-            fc = owm.three_hours_forecast(loc)
-            f = fc.get_forecast()
-            fw =f.get_weathers()
-            for weather in fw:
-                timestring = datetime.fromtimestamp(weather.get_reference_time()).strftime('%Y-%m-%d %X')
-                dict.update({datetime.fromtimestamp(weather.get_reference_time()):
-                             {
-                                  'location': loc
-                                 ,'timestring': timestring
-                                 ,'status':weather.get_status()
-                                 ,'detstat':weather.get_detailed_status()
-                                 ,'windspeed':weather.get_wind()['speed']
-        #                          ,'winddirection':weather.get_wind()['deg']
-                                 ,'temp':weather.get_temperature('fahrenheit')['temp']
-                                 ,'temp_max':weather.get_temperature('fahrenheit')['temp_max']
-                                 ,'temp_min':weather.get_temperature('fahrenheit')['temp_min']
-                             }
-                            })
-            df = pd.DataFrame.from_dict(dict, orient='index')
-            return df
+        # owm = OWM(key)
+        # def getForecastfromDict(loc):
+        #     obs = owm.weather_at_place(loc)                    # Toponym
+        #     w = obs.get_weather()
+        #     curr_hour = datetime.fromtimestamp(w.get_reference_time())
+        #     dict = {}
+        #     dict.update({curr_hour.replace(second=0, microsecond=0, minute=0, hour=curr_hour.hour)+timedelta(hours=curr_hour.minute//30):
+        #                  {
+        #                      'location': loc
+        #                      ,'timestring':datetime.fromtimestamp(w.get_reference_time()).strftime('%Y-%m-%d %X')
+        #                      ,'status':w.get_status()
+        #                      ,'detstat':w.get_detailed_status()
+        #                      ,'windspeed':w.get_wind()['speed']
+        # #                      ,'winddirection':w.get_wind()['deg']
+        #                      ,'temp':w.get_temperature('fahrenheit')['temp']
+        #                      ,'temp_max':w.get_temperature('fahrenheit')['temp_max']
+        #                      ,'temp_min':w.get_temperature('fahrenheit')['temp_min']
+        #                      }
+        #                     })
+        #     fc = owm.three_hours_forecast(loc)
+        #     f = fc.get_forecast()
+        #     fw =f.get_weathers()
+        #     for weather in fw:
+        #         timestring = datetime.fromtimestamp(weather.get_reference_time()).strftime('%Y-%m-%d %X')
+        #         dict.update({datetime.fromtimestamp(weather.get_reference_time()):
+        #                      {
+        #                           'location': loc
+        #                          ,'timestring': timestring
+        #                          ,'status':weather.get_status()
+        #                          ,'detstat':weather.get_detailed_status()
+        #                          ,'windspeed':weather.get_wind()['speed']
+        # #                          ,'winddirection':weather.get_wind()['deg']
+        #                          ,'temp':weather.get_temperature('fahrenheit')['temp']
+        #                          ,'temp_max':weather.get_temperature('fahrenheit')['temp_max']
+        #                          ,'temp_min':weather.get_temperature('fahrenheit')['temp_min']
+        #                      }
+        #                     })
+        #     df = pd.DataFrame.from_dict(dict, orient='index')
+        #     return df
 
         temps = []
         for location in locations:
-            temps.append(getForecastfromDict(location)[['temp']])
+            forecast = wapi.get_forecast(city=location, units='I')
+            f = forecast.get_series(['temp'])
+            dict = {}
+            for temp in f:
+                dict.update({temp['datetime']:
+                 {
+                     'temp': temp['temp']
+                 }
+                })
+            temps.append(pd.DataFrame.from_dict(dict, orient='index'))
+        # for location in locations:
+        #     temps.append(getForecastfromDict(location)[['temp']])
 
         temp_c = pd.concat(temps,axis=1)
         temp_c.columns = locations
