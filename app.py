@@ -73,7 +73,7 @@ class getChart(Resource):
         temp_c.columns = locations
         colors = plasma(len(locations*2))
 
-        p = figure(width=950, height=550, x_axis_type="datetime")
+        p = figure(width=950, height=600, x_axis_type="datetime")
 
         for num, location in enumerate(locations, start=0):
             p.line(temp_c.index.values, temp_c[0:][location], legend=location, color=colors[num*2+1], line_width=4)
@@ -94,7 +94,7 @@ class getChart(Resource):
         p.toolbar_location = None
         p.border_fill_color = '#949494'
         p.background_fill_color = '#949494'
-        p.legend.background_fill_alpha = 0.5
+        p.legend.background_fill_alpha = 0.7
         # output_notebook(hide_banner=True)
         # show(p)
         script, div = components(p)
