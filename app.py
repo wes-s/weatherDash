@@ -38,11 +38,15 @@ class getChart(Resource):
                 att = 'max_temp'
             t = forecast.get_series([att])
             dict_t = {}
-            for temp in t:
-                if granularity == 'hourly':
+            for num, temp in enumerate(t):
+                if granularity == 'hourly' or num > 0:
                     idx = datetime.fromtimestamp(datetime.timestamp(pytz.utc.localize(temp['datetime'])))
                 else:
-                    idx = datetime.fromtimestamp(datetime.timestamp(pytz.utc.localize(temp['datetime']))).replace(second=0, microsecond=0, minute=0, hour=temps_h[-1].iloc[-1].name.hour+2)
+                    if num ==0:
+                        idx = datetime.fromtimestamp(
+                        datetime.timestamp(
+                            pytz.utc.localize(
+                                temp['datetime']))).replace(second=0, microsecond=0, minute=0, hour=temps_h[-1].iloc[-1].name.hour)+timedelta(hours = 2)
                 dict_t.update({idx:
                     {
                         'temp': temp[att]
