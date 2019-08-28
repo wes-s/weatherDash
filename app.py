@@ -39,10 +39,10 @@ class getChart(Resource):
             t = forecast.get_series([att])
             dict_t = {}
             for num, temp in enumerate(t):
-                if granularity == 'hourly' or num > 0:
+                if granularity == 'hourly' or num > 3:
                     idx = datetime.fromtimestamp(datetime.timestamp(pytz.utc.localize(temp['datetime'])))
                 else:
-                    if num ==0:
+                    if num <= 3:
                         idx = datetime.fromtimestamp(
                         datetime.timestamp(
                             pytz.utc.localize(
@@ -58,7 +58,7 @@ class getChart(Resource):
         for location in locations:
             temps_h.append(getForecastFromWeatherBit(location,'hourly'))
         #     print(temps_h[-1].iloc[-1].name)
-            temps_d.append(getForecastFromWeatherBit(location,'daily')[4:9])
+            temps_d.append(getForecastFromWeatherBit(location,'daily')[3:8])
 
         tempH = pd.concat(temps_h,axis=1)
         tempH.columns = locations
