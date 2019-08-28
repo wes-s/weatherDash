@@ -58,7 +58,7 @@ class getChart(Resource):
         for location in locations:
             temps_h.append(getForecastFromWeatherBit(location,'hourly'))
         #     print(temps_h[-1].iloc[-1].name)
-            temps_d.append(getForecastFromWeatherBit(location,'daily')[3:8])
+            temps_d.append(getForecastFromWeatherBit(location,'daily')[4:9])
 
         tempH = pd.concat(temps_h,axis=1)
         tempH.columns = locations
