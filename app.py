@@ -3,7 +3,7 @@ from flask_restful import Api, Resource
 from flask import send_file
 # from pyowm import OWM
 from weatherbit.api import Api as wApi
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 import pandas as pd
 from bokeh.palettes import plasma
