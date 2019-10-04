@@ -13,8 +13,8 @@
     {{script|safe}}
     {{div|safe}}
     <script>
-        var today = new Date().getHours();
         function checkTime(){
+            var today = new Date().getHours();
             if (today >= 7 && today <= 17) {
                 setTimeout(function(){
                     window.location.reload(1);
