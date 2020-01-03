@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, make_response
 from flask_restful import Api, Resource
 from flask import send_file
+from flask import send_from_directory
 # from pyowm import OWM
 from weatherbit.api import Api as wApi
 from datetime import datetime, timedelta
@@ -11,6 +12,11 @@ from bokeh.plotting import figure, show
 from bokeh.embed import components
 from bokeh.models import DatetimeTickFormatter
 import math
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'),
+                               'favicon.ico', mimetype='image/png')
 
 app = Flask(__name__)
 api = Api(app)
@@ -112,11 +118,6 @@ class getChart(Resource):
         return make_response(render_template('index.html', script=script, div=div))
 
 api.add_resource(getChart,"/getChart/<string:locations>")
-
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static', 'images'),
-                               'favicon.ico', mimetype='image/png')
 
 # run.py in local werkzeug simple server when locally testing
 if __name__ == "__main__":
