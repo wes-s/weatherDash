@@ -113,6 +113,11 @@ class getChart(Resource):
 
 api.add_resource(getChart,"/getChart/<string:locations>")
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'),
+                               'favicon.ico', mimetype='image/png')
+
 # run.py in local werkzeug simple server when locally testing
 if __name__ == "__main__":
     app.run(debug=True)
