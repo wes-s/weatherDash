@@ -102,7 +102,9 @@ class getChart(Resource):
 
         p.toolbar.logo = None
         p.border_fill_color = '#191919'
-        p.background_fill_color = '191919'
+        p.background_fill_color = '#191919'
+        # p.border_fill_color = '#949494'
+        # p.background_fill_color = "#949494"
         p.legend.background_fill_alpha = 0.7
         # output_notebook(hide_banner=True)
         # show(p)
