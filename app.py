@@ -12,15 +12,15 @@ from bokeh.plotting import figure, show
 from bokeh.embed import components
 from bokeh.models import DatetimeTickFormatter
 import math
+import os
 
 app = Flask(__name__)
 api = Api(app)
 
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static', 'images'),
-                               'favicon.ico', mimetype='image/png')
-                               
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'),'favicon.ico', mimetype='image/png')
+
 class getChart(Resource):
     def get(self, locations):
         headers = {'Content-Type': 'text/html'}
