@@ -87,22 +87,22 @@ class getChart(Resource):
 
         p.xaxis.major_label_orientation = math.pi/4
 
-        d.xaxis.major_label_text_color = '#FFFFFF'
-        d.yaxis.major_label_text_color = '#FFFFFF'
+        p.xaxis.major_label_text_color = '#FFFFFF'
+        p.yaxis.major_label_text_color = '#FFFFFF'
 
-        d.xaxis.axis_line_color = '#FFFFFF'
-        d.yaxis.axis_line_color = '#FFFFFF'
+        p.xaxis.axis_line_color = '#FFFFFF'
+        p.yaxis.axis_line_color = '#FFFFFF'
 
-        d.xaxis.major_tick_line_color = '#FFFFFF'
-        d.yaxis.major_tick_line_color = '#FFFFFF'
-        d.yaxis.minor_tick_line_color = '#FFFFFF'   
+        p.xaxis.major_tick_line_color = '#FFFFFF'
+        p.yaxis.major_tick_line_color = '#FFFFFF'
+        p.yaxis.minor_tick_line_color = '#FFFFFF'   
 
-        d.xgrid.grid_line_color = '#333333'
-        d.ygrid.grid_line_color = '#333333'
+        p.xgrid.grid_line_color = '#333333'
+        p.ygrid.grid_line_color = '#333333'
 
-        d.toolbar.logo = None
-        d.border_fill_color = '#191919'
-        d.background_fill_color = '191919'
+        p.toolbar.logo = None
+        p.border_fill_color = '#191919'
+        p.background_fill_color = '191919'
         p.legend.background_fill_alpha = 0.7
         # output_notebook(hide_banner=True)
         # show(p)
