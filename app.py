@@ -88,7 +88,7 @@ class getChart(Resource):
         p.xaxis.major_label_orientation = math.pi/4
 
         d.xaxis.major_label_text_color = '#FFFFFF'
-        d.yaxis.major_label_text_color = ‘#FFFFFF’
+        d.yaxis.major_label_text_color = '#FFFFFF'
 
         d.xaxis.axis_line_color = '#FFFFFF'
         d.yaxis.axis_line_color = '#FFFFFF'
