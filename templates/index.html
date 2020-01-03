@@ -10,31 +10,20 @@
     {{ bokeh_js }}
 </head>
 <body onload="window.scrollTo(0,document.body.scrollHeight);">
-    <!-- <button id="goFS">Go fullscreen</button> -->
     {{script|safe}}
     {{div|safe}}
     <script>
-        // var goFS = document.getElementById("goFS");
-        // goFS.addEventListener("click", function() {toggleFullScreen();window.scrollTo(0,document.body.scrollHeight);}, false);
-        // function toggleFullScreen() {
-        //   var doc = window.document;
-        //   var docEl = doc.documentElement;
-        
-        //   var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-        //   var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
-        
-        //   if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
-        //     requestFullScreen.call(docEl);
-        //   }
-        //   else {
-        //     cancelFullScreen.call(doc);
-        //   }
-        // }
-        // if ('scrollRestoration' in window.history) {window.history.scrollRestoration = 'manual'}
-        // window.scrollTo(0,document.body.scrollHeight);
-        setTimeout(function(){
-        window.location.reload(1);
-        }, 1800000);
+        function checkTime(){
+            var today = new Date().getHours();
+            console.log(today)
+            if (today >= 7 && today <= 17) {
+                    window.location.reload(1);
+            } 
+        }
+        setInterval(function(){
+                    checkTIme();
+                }, 1800000);
+
     </script>
 </body>
 </html>
