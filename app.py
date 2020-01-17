@@ -52,7 +52,7 @@ class getChart(Resource):
                         idx = datetime.fromtimestamp(
                         datetime.timestamp(
                             pytz.utc.localize(
-                                temp['datetime']))).replace(second=0, microsecond=0, minute=0, hour=temps_h[-1].iloc[-1].name.hour)+timedelta(hours = 2)
+                                temp['datetime'])))#.replace(second=0, microsecond=0, minute=0, hour=temps_h[-1].iloc[-1].name.hour)+timedelta(hours = 2) ##hourly forecasts have been removed from weatherbit free tier
                 dict_t.update({idx:
                     {
                         'temp': temp[att]
@@ -62,12 +62,12 @@ class getChart(Resource):
             return df
 
         for location in locations:
-            temps_h.append(getForecastFromWeatherBit(location,'hourly'))
+            # temps_h.append(getForecastFromWeatherBit(location,'hourly'))##hourly forecasts have been removed from weatherbit free tier
         #     print(temps_h[-1].iloc[-1].name)
             temps_d.append(getForecastFromWeatherBit(location,'daily')[3:8])
 
-        tempH = pd.concat(temps_h,axis=1)
-        tempH.columns = locations
+        # tempH = pd.concat(temps_h,axis=1) ##hourly forecasts have been removed from weatherbit free tier
+        # tempH.columns = locations ##hourly forecasts have been removed from weatherbit free tier
 
         tempD = pd.concat(temps_d,axis=1)
         tempD.columns = locations
@@ -89,7 +89,7 @@ class getChart(Resource):
                 years=["%A %m-%d"]
         )
         
-        p.xaxis[0].ticker.desired_num_ticks = len(tempH)
+        p.xaxis[0].ticker.desired_num_ticks = len(tempD) ## len(tempH) ##hourly forecasts have been removed from weatherbit free tier
 
         p.xaxis.major_label_orientation = math.pi/4
 
