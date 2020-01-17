@@ -64,7 +64,7 @@ class getChart(Resource):
         for location in locations:
             # temps_h.append(getForecastFromWeatherBit(location,'hourly'))##hourly forecasts have been removed from weatherbit free tier
         #     print(temps_h[-1].iloc[-1].name)
-            temps_d.append(getForecastFromWeatherBit(location,'daily')[3:8])
+            temps_d.append(getForecastFromWeatherBit(location,'daily')[0:16])
 
         # tempH = pd.concat(temps_h,axis=1) ##hourly forecasts have been removed from weatherbit free tier
         # tempH.columns = locations ##hourly forecasts have been removed from weatherbit free tier
