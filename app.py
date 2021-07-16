@@ -52,7 +52,7 @@ class getChart(Resource):
                         idx = datetime.fromtimestamp(
                         datetime.timestamp(
                             pytz.utc.localize(
-                                temp['datetime'])))#.replace(second=0, microsecond=0, minute=0, hour=temps_h[-1].iloc[-1].name.hour)+timedelta(hours = 2) ##hourly forecasts have been removed from weatherbit free tier
+                                temp['datetime']))).replace(second=0, microsecond=0, minute=0, hour=temps_h[-1].iloc[-1].name.hour)+timedelta(hours = 2) ##hourly forecasts have been removed from weatherbit free tier
                 dict_t.update({idx:
                     {
                         'temp': temp[att]
@@ -83,7 +83,7 @@ class getChart(Resource):
             p.circle(tempD.index.values, tempD[0:][location],  color=colors[num*2],size=8)
         
         p.xaxis.formatter=DatetimeTickFormatter(
-                #hours=["%I:00 %p"],
+                hours=["%I:00 %p"],
                 days=["%A %m-%d"],
                 months=["%A %m-%d"],
                 years=["%A %m-%d"]
