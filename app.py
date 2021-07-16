@@ -50,9 +50,10 @@ class getChart(Resource):
                 else:
                     if num <= 3:
                         idx = datetime.fromtimestamp(
-                        datetime.timestamp(
-                            pytz.utc.localize(
-                                datetime.strftime(temp['datetime'],'%Y-%m-%d'))))#.replace(second=0, microsecond=0, minute=0, hour=temps_h[-1].iloc[-1].name.hour)+timedelta(hours = 2) ##hourly forecasts have been removed from weatherbit free tier
+                            datetime.timestamp(
+                                pytz.utc.localize(
+                                    temp['datetime']))).replace(hour=0, minute=0, second=0, microsecond=0)
+                                    #.replace(second=0, microsecond=0, minute=0, hour=temps_h[-1].iloc[-1].name.hour)+timedelta(hours = 2) ##hourly forecasts have been removed from weatherbit free tier
                 dict_t.update({idx:
                     {
                         'temp': temp[att]
