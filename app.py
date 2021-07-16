@@ -46,7 +46,7 @@ class getChart(Resource):
             dict_t = {}
             for num, temp in enumerate(t):
                 if granularity == 'hourly' or num > 3:
-                    idx = datetime.fromtimestamp(datetime.timestamp(pytz.utc.localize(temp['datetime'])))
+                    idx = datetime.fromtimestamp(datetime.timestamp(pytz.utc.localize(temp['datetime']))).replace(hour=0, minute=0, second=0, microsecond=0)
                 else:
                     if num <= 3:
                         idx = datetime.fromtimestamp(
