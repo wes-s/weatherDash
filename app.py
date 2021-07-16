@@ -83,7 +83,7 @@ class getChart(Resource):
             p.circle(tempD.index.values, tempD[0:][location],  color=colors[num*2],size=8)
         
         p.xaxis.formatter=DatetimeTickFormatter(
-                hours=["%I:00 %p"],
+                #hours=["%I:00 %p"],
                 days=["%A %m-%d"],
                 months=["%A %m-%d"],
                 years=["%A %m-%d"]
