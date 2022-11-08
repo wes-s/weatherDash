@@ -6,4 +6,4 @@ requests==2.21.0
 bokeh==2.4.3
 pandas==1.5.1
 pyowm==2.10.0
-pyweatherbit==2.0.0
+pyweatherbit==2.1.1
