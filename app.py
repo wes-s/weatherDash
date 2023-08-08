@@ -80,7 +80,7 @@ class getChart(Resource):
         for num, location in enumerate(locations, start=0):
             # p.line(tempH.index.values, tempH[0:][location], legend=location, color=colors[num*2+1], line_width=5)##hourly forecasts have been removed from weatherbit free tier
             # p.circle(tempH.index.values, tempH[0:][location],  color=colors[num*2],size=8)##hourly forecasts have been removed from weatherbit free tier
-            p.line(tempD.index.values, tempD[0:][location], legend=location, color=colors[num*2+1], line_dash=[10,2], line_width=3)
+            p.line(tempD.index.values, tempD[0:][location], legend_label=location, color=colors[num*2+1], line_dash=[10,2], line_width=3)
             p.circle(tempD.index.values, tempD[0:][location],  color=colors[num*2],size=8)
         
         p.xaxis.formatter=DatetimeTickFormatter(
