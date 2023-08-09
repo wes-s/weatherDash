@@ -11,6 +11,7 @@ from bokeh.palettes import plasma
 from bokeh.plotting import figure, show
 from bokeh.embed import components
 from bokeh.models import DatetimeTickFormatter
+from bokeh.io import export_svgs
 import math
 import os
 
@@ -82,13 +83,14 @@ class getChart(Resource):
             # p.circle(tempH.index.values, tempH[0:][location],  color=colors[num*2],size=8)##hourly forecasts have been removed from weatherbit free tier
             p.line(tempD.index.values, tempD[0:][location], legend_label=location, color=colors[num*2+1], line_dash=[10,2], line_width=3)
             p.circle(tempD.index.values, tempD[0:][location],  color=colors[num*2],size=8)
-        
+
         p.xaxis.formatter=DatetimeTickFormatter(
-                hours=["%I:00 %p"],
-                days=["%A %m-%d"],
-                months=["%A %m-%d"],
-                years=["%A %m-%d"]
+                hours="%I:00 %p",
+                days="%A %m-%d",
+                months="%A %m-%d",
+                years="%A %m-%d"
         )
+
         
         p.xaxis[0].ticker.desired_num_ticks = len(tempD) ## len(tempH) ##hourly forecasts have been removed from weatherbit free tier
 
@@ -115,7 +117,9 @@ class getChart(Resource):
         p.legend.background_fill_alpha = 0.7
         # output_notebook(hide_banner=True)
         # show(p)
+        
         script, div = components(p)
+        # script, div = components(export_svgs(p))
         return make_response(render_template('index.html', script=script, div=div))
 
 api.add_resource(getChart,"/getChart/<string:locations>")
